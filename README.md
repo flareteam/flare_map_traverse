@@ -10,6 +10,12 @@ data_dir="/path/to/mod/" graphviz_prefix="./prefix.dot" ./generate_graph.py | do
 
 [empyrean_campaign_hyperspace.svg](./empyrean_campaign_hyperspace.svg)
 
+
+## Prequisities
+
+Install "graphviz" package.
+
+
 ## License
 
 GPLv3+
