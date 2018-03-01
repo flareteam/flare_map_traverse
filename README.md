@@ -7,7 +7,7 @@ It is kinda "untyped", relying on regular expressions, yet it works just fine on
 ## Usage
 
 ```bash
-data_dir="/path/to/mod/" graphviz_prefix="./prefix.dot" ./generate_graph.py | dot -Tsvg > output.svg
+data_dir="/path/to/mod/" graphviz_prefix="./prefix.dot" ./generate_graph.py | dot -Tpng > output.png
 ```
 
 There are also two legacy bash scripts that generate map without sorting.
@@ -21,9 +21,9 @@ In this case, use:
 
 ## Example
 
-[empyrean_campaign_default.svg](./example/empyrean_campaign_default.svg)
+[empyrean_campaign_default](./example/empyrean_campaign_default.png)
 
-[empyrean_campaign_hyperspace.svg](./empyrean_campaign_hyperspace.svg)
+[empyrean_campaign_hyperspace](./example/empyrean_campaign_hyperspace.png)
 
 
 ## Prequisities
