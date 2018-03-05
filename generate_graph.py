@@ -7,6 +7,7 @@ import os
 data_dir = os.path.abspath(os.environ["data_dir"])
 graphviz_prefix_file = os.environ.get("graphviz_prefix", "prefix.dot")
 print_dead = os.environ.get("print_dead", "false").lower() in ("yes", "true", "1")
+print_npc = os.environ.get("npc", "true").lower() in ("yes", "true", "1")
 
 with open(graphviz_prefix_file, 'rU') as opened_file:
     graphviz = opened_file.read()
@@ -72,10 +73,11 @@ to_traverse = ['maps/spawn.txt']
 for map_file in to_traverse:
     traversed[map_file] = True
     map_id = clean(map_file)
-    for npc_child in map_to_map_npc[map_file]:
-        graphviz += '{} -> {} [label=npc style=dashed]\n'.format(map_id, clean(npc_child))
-        if npc_child not in traversed:
-            to_traverse.append(npc_child)
+    if print_npc:
+        for npc_child in map_to_map_npc[map_file]:
+            graphviz += '{} -> {} [label=npc style=dashed]\n'.format(map_id, clean(npc_child))
+            if npc_child not in traversed:
+                to_traverse.append(npc_child)
     for direct_child in map_to_map_direct[map_file]:
         graphviz += '{} -> {}\n'.format(map_id, clean(direct_child))
         if direct_child not in traversed:

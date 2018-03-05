@@ -11,7 +11,8 @@ data_dir="/path/to/mod/" ./generate_graph.py | dot -Tpng > output.png
 ```
 
 Additionally, you can set environment variables
-`graphviz_prefix` to specify prefix file and
+`graphviz_prefix` to specify prefix file,
+`print_npc` to print npc map connections (enabled by default) and
 `print_dead` to print/draw unreachable map nodes.
 
 Also, you can use "svg" and many other other picture formats that `dot` (graphviz) tool allows.
