@@ -1,8 +1,5 @@
 strict digraph " " {
 
-// generate image with:
-//     dot -Tsvg graph.dot > graph.svg
-
 node [shape=box style=filled fillcolor=none fontname=Serif]
 layout=dot;
 splines=polyline;
@@ -12,4 +9,3 @@ ranksep=0.9;
 
 
 hyperspace [fillcolor="lightblue"]
-

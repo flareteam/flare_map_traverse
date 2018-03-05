@@ -7,8 +7,16 @@ It is kinda "untyped", relying on regular expressions, yet it works just fine on
 ## Usage
 
 ```bash
-data_dir="/path/to/mod/" graphviz_prefix="./prefix.dot" ./generate_graph.py | dot -Tpng > output.png
+data_dir="/path/to/mod/" ./generate_graph.py | dot -Tpng > output.png
 ```
+
+Additionally, you can set environment variables
+`graphviz_prefix` to specify prefix file and
+`print_dead` to print/draw unreachable map nodes.
+
+Also, you can use "svg" and many other other picture formats that `dot` (graphviz) tool allows.
+
+## Legacy
 
 There are also two legacy bash scripts that generate map without sorting.
 Unfortunately, the main smart algo does not differ much from it if you have crazy connected map tiles (hyperspace, I'm looking at you).

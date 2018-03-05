@@ -2,10 +2,16 @@
 
 import glob
 import re
-import itertools
 import os
 
 data_dir = os.path.abspath(os.environ["data_dir"])
+graphviz_prefix_file = os.environ.get("graphviz_prefix", "prefix.dot")
+print_dead = os.environ.get("print_dead", "false").lower() in ("yes", "true", "1")
+
+with open(graphviz_prefix_file, 'rU') as opened_file:
+    graphviz = opened_file.read()
+
+os.chdir(os.path.abspath(os.environ["data_dir"]))
 
 
 def get_intermaps(filename):
@@ -30,20 +36,27 @@ def get_npc_files(filename):
     return result
 
 
+def get_map_name(filename):
+    with open(filename, 'rU') as opened_file:
+        for line in opened_file:
+            ref = re.search('title=(.*)', line)
+            if ref:
+                return ref.group(1)
+
+
 map_to_map_direct = {}
 map_to_map_npc = {}
 
-all_maps = itertools.chain(
-    glob.iglob(data_dir + '/maps/*.txt'),
-    glob.iglob(data_dir + '/maps/*/*.txt')
-)
-for map_name in all_maps:
-    relative = os.path.relpath(map_name, data_dir)
-    map_to_map_direct[relative] = get_intermaps(map_name)
-    map_to_map_npc[relative] = []
-    for npc_file in get_npc_files(map_name):
-        map_to_map_npc[relative].extend(
-            get_intermaps(data_dir + '/' + npc_file)
+all_maps = list(glob.iglob('maps/*.txt')) + \
+           list(glob.iglob('maps/*/*.txt'))
+all_maps = list(map(lambda x: os.path.relpath(x, data_dir), all_maps))
+
+for map_file in all_maps:
+    map_to_map_direct[map_file] = get_intermaps(map_file)
+    map_to_map_npc[map_file] = []
+    for npc_file in get_npc_files(map_file):
+        map_to_map_npc[map_file].extend(
+            get_intermaps(npc_file)
         )
 
 # print(map_to_map_direct)
@@ -54,22 +67,26 @@ def clean(filename):
     return os.path.splitext(os.path.basename(filename))[0]
 
 
-with open(os.environ.get("graphviz_prefix", "prefix.dot"), 'rU') as opened_file:
-    graphviz = opened_file.read()
-
 traversed = {}
 to_traverse = ['maps/spawn.txt']
 for map_file in to_traverse:
     traversed[map_file] = True
-    map = os.path.splitext(os.path.basename(map_file))[0]
+    map_id = clean(map_file)
     for npc_child in map_to_map_npc[map_file]:
-        graphviz += '{} -> {} [label=npc style=dashed]\n'.format(map, clean(npc_child))
+        graphviz += '{} -> {} [label=npc style=dashed]\n'.format(map_id, clean(npc_child))
         if npc_child not in traversed:
             to_traverse.append(npc_child)
     for direct_child in map_to_map_direct[map_file]:
-        graphviz += '{} -> {}\n'.format(map, clean(direct_child))
+        graphviz += '{} -> {}\n'.format(map_id, clean(direct_child))
         if direct_child not in traversed:
             to_traverse.append(direct_child)
+    graphviz += '{} [label="{}"]\n'.format(map_id, get_map_name(map_file) or map_file)
+
+if print_dead:
+    for map_file in all_maps:
+        map_name = get_map_name(map_file)
+        graphviz += '{} [label="{}"]\n'.format(clean(map_file), map_name or map_file)
+
 
 graphviz += "}"
 
