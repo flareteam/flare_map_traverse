@@ -9,7 +9,7 @@ graphviz_prefix_file = os.environ.get("graphviz_prefix", "prefix.dot")
 print_dead = os.environ.get("print_dead", "false").lower() in ("yes", "true", "1")
 print_npc = os.environ.get("npc", "true").lower() in ("yes", "true", "1")
 
-with open(graphviz_prefix_file, 'rU') as opened_file:
+with open(graphviz_prefix_file, 'r') as opened_file:
     graphviz = opened_file.read()
 
 os.chdir(os.path.abspath(os.environ["data_dir"]))
@@ -17,7 +17,7 @@ os.chdir(os.path.abspath(os.environ["data_dir"]))
 
 def get_intermaps(filename):
     result = []
-    with open(filename, 'rU') as opened_file:
+    with open(filename, 'r') as opened_file:
         for line in opened_file:
             ref = re.search('intermap=(maps.*),.*,.*', line)
             if ref:
@@ -28,7 +28,7 @@ def get_intermaps(filename):
 
 def get_npc_files(filename):
     result = []
-    with open(filename, 'rU') as opened_file:
+    with open(filename, 'r') as opened_file:
         for line in opened_file:
             ref = re.search('filename=(npcs.*)', line)
             if ref:
@@ -38,7 +38,7 @@ def get_npc_files(filename):
 
 
 def get_map_name(filename):
-    with open(filename, 'rU') as opened_file:
+    with open(filename, 'r') as opened_file:
         for line in opened_file:
             ref = re.search('title=(.*)', line)
             if ref:
