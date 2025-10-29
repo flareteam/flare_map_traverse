@@ -1,4 +1,4 @@
-strict digraph " " {
+digraph " " {
 
 node [shape=box style=filled fillcolor=none fontname=Serif]
 layout=dot;
@@ -6,6 +6,3 @@ splines=polyline;
 ranksep=0.9;
 //edge [arrowhead=none];
 //rankdir=LR;
-
-
-hyperspace [fillcolor="lightblue"]

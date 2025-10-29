@@ -10,10 +10,11 @@ It is kinda "untyped", relying on regular expressions, yet it works just fine on
 data_dir="/path/to/mod/" ./generate_graph.py | dot -Tpng > output.png
 ```
 
-Additionally, you can set environment variables
-`graphviz_prefix` to specify prefix file,
-`print_npc` to print npc map connections (enabled by default) and
-`print_dead` to print/draw unreachable map nodes.
+Additionally, you can set environment variables:  
+`graphviz_prefix` to specify prefix file,  
+`print_npc` to print npc map connections (enabled by default) and  
+`print_dead` to print/draw unreachable map nodes,  
+`graphviz_suffix` optionally to specify a suffix file, otherwise `suffix.dot` is used which contains a blue-themed Hyperspace definition.
 
 Also, you can use "svg" and many other other picture formats that `dot` (graphviz) tool allows.
 

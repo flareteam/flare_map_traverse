@@ -6,18 +6,25 @@ import os
 
 data_dir = os.path.abspath(os.environ["data_dir"])
 graphviz_prefix_file = os.environ.get("graphviz_prefix", "prefix.dot")
+graphviz_suffix_file = os.environ.get("graphviz_suffix", "suffix.dot")
 print_dead = os.environ.get("print_dead", "false").lower() in ("yes", "true", "1")
 print_npc = os.environ.get("npc", "true").lower() in ("yes", "true", "1")
 
-with open(graphviz_prefix_file, 'rU') as opened_file:
+with open(graphviz_prefix_file, 'r') as opened_file:
     graphviz = opened_file.read()
+
+if os.path.exists(graphviz_suffix_file):
+    with open(graphviz_suffix_file, 'r') as opened_file:
+        suffix = opened_file.read()
+else:
+    suffix = "}"
 
 os.chdir(os.path.abspath(os.environ["data_dir"]))
 
 
 def get_intermaps(filename):
     result = []
-    with open(filename, 'rU') as opened_file:
+    with open(filename, 'r') as opened_file:
         for line in opened_file:
             ref = re.search('intermap=(maps.*),.*,.*', line)
             if ref:
@@ -28,7 +35,7 @@ def get_intermaps(filename):
 
 def get_npc_files(filename):
     result = []
-    with open(filename, 'rU') as opened_file:
+    with open(filename, 'r') as opened_file:
         for line in opened_file:
             ref = re.search('filename=(npcs.*)', line)
             if ref:
@@ -38,7 +45,7 @@ def get_npc_files(filename):
 
 
 def get_map_name(filename):
-    with open(filename, 'rU') as opened_file:
+    with open(filename, 'r') as opened_file:
         for line in opened_file:
             ref = re.search('title=(.*)', line)
             if ref:
@@ -76,11 +83,11 @@ for map_file in to_traverse:
     if print_npc:
         for npc_child in map_to_map_npc[map_file]:
             graphviz += '{} -> {} [label=npc style=dashed]\n'.format(map_id, clean(npc_child))
-            if npc_child not in traversed:
+            if (npc_child not in traversed) and (npc_child not in to_traverse):
                 to_traverse.append(npc_child)
     for direct_child in map_to_map_direct[map_file]:
         graphviz += '{} -> {}\n'.format(map_id, clean(direct_child))
-        if direct_child not in traversed:
+        if (direct_child not in traversed) and (direct_child not in to_traverse):
             to_traverse.append(direct_child)
     graphviz += '{} [label="{}"]\n'.format(map_id, get_map_name(map_file) or map_file)
 
@@ -89,7 +96,6 @@ if print_dead:
         map_name = get_map_name(map_file)
         graphviz += '{} [label="{}"]\n'.format(clean(map_file), map_name or map_file)
 
-
-graphviz += "}"
+graphviz += suffix
 
 print(graphviz)
