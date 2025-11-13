@@ -7,16 +7,18 @@ It is kinda "untyped", relying on regular expressions, yet it works just fine on
 ## Usage
 
 ```bash
-data_dir="/path/to/mod/" ./generate_graph.py | dot -Tpng > output.png
+data_dir="/path/to/mod/" ./generate_graph.py | tee output.graphviz | dot -Tpng > output.png
 ```
 
 Additionally, you can set environment variables:  
-`graphviz_prefix` to specify prefix file,  
-`print_npc` to print npc map connections (enabled by default) and  
-`print_dead` to print/draw unreachable map nodes,  
-`graphviz_suffix` optionally to specify a suffix file, otherwise `suffix.dot` is used which contains a blue-themed Hyperspace definition.
+`directional=1` to force direction similar to game progression (default=1),  
+`print_npc=1` to print npc map connections (default=1),  
+`print_dead=1` to print/draw unreachable map nodes (default=0),  
+`graphviz_prefix` to specify a Graphviz prefix file (default=prefix.dot),  
+`graphviz_suffix` to specify a Graphviz suffix file (default=suffix.dot).
 
-Also, you can use "svg" and many other other picture formats that `dot` (graphviz) tool allows.
+Also, you can replace "png" with "svg" or many other other picture formats,
+see `dot` (graphviz) for documentation on that.
 
 ## Legacy
 
