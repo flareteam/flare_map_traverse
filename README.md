@@ -1,8 +1,13 @@
 ## About
 
-`generate_graph` is a tool that constructs a graph image from a well structured flare_game mod. It does so by traversing maps and extracting relevant "map connections".
+`generate_graph` is a tool that generates the image shown below.
+Or generally, it generates a graph of maps from a FLARE (game) mod.
+It does so by traversing maps and extracting relevant "map connections".
 
-It is kinda "untyped", relying on regular expressions, yet it works just fine on the empyrean campaign (and probably others).
+It is kinda "untyped", relying on regular expressions, yet it works just fine
+on the empyrean campaign (and probably others).
+
+![Empyrean campaign map graph](example/empyrean_campaign.png)
 
 ## Usage
 
