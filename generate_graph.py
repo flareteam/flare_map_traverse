@@ -4,6 +4,19 @@ import glob
 import re
 import os
 
+if "data_dir" not in os.environ:
+    print("Usage: data_dir=\"/path/to/mod/\" ./generate_graph.py [options]")
+    print()
+    print("Required environment variables:")
+    print("  data_dir          Path to the mod directory (contains maps/ folder)")
+    print()
+    print("Optional environment variables:")
+    print("  directional=1     Force direction similar to game progression (default=1)")
+    print("  npc=1             Print npc map connections (default=1)")
+    print("  print_dead=0      Print/draw unreachable map nodes (default=0)")
+    print("  graphviz_prefix   Specify a Graphviz prefix file (default=prefix.dot)")
+    print("  graphviz_suffix   Specify a Graphviz suffix file (default=suffix.dot)")
+    exit(1)
 data_dir = os.path.abspath(os.environ["data_dir"])
 graphviz_prefix_file = os.environ.get("graphviz_prefix", "prefix.dot")
 graphviz_suffix_file = os.environ.get("graphviz_suffix", "suffix.dot")
