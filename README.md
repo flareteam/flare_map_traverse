@@ -15,14 +15,15 @@ on the empyrean campaign (and probably others).
 data_dir="/path/to/mod/" ./generate_graph.py | tee output.graphviz | dot -Tpng > output.png
 ```
 
-Additionally, you can set environment variables:  
-`directional=1` to force direction similar to game progression (default=1),  
-`print_npc=1` to print npc map connections (default=1),  
-`print_dead=1` to print/draw unreachable map nodes (default=0),  
-`graphviz_prefix` to specify a Graphviz prefix file (default=prefix.dot),  
-`graphviz_suffix` to specify a Graphviz suffix file (default=suffix.dot).
+Additionally, you can set environment variables:
 
-Also, you can replace "png" with "svg" or many other other picture formats,
+- `directional=1` to force direction similar to game progression (default=1)
+- `print_npc=1` to print npc map connections (default=1)
+- `print_dead=1` to print/draw unreachable map nodes (default=0)
+- `graphviz_prefix` to specify a Graphviz prefix file (default=prefix.dot)
+- `graphviz_suffix` to specify a Graphviz suffix file (default=suffix.dot)
+
+Also, you can replace "png" with "svg" or many other image formats;
 see `dot` (graphviz) for documentation on that.
 
 ## Legacy
@@ -43,7 +44,7 @@ In this case, use:
 [empyrean_campaign_hyperspace](./example/empyrean_campaign_hyperspace.png)
 
 
-## Prequisities
+## Prerequisites
 
 Install "graphviz" package.
 
