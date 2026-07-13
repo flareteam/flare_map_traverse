@@ -12,16 +12,16 @@ on the empyrean campaign (and probably others).
 ## Usage
 
 ```bash
-data_dir="/path/to/mod/" ./generate_graph.py | tee output.graphviz | dot -Tpng > output.png
+./generate_graph.py --data_dir="/path/to/mod" | tee output.graphviz | dot -Tpng > output.png
 ```
 
-Additionally, you can set environment variables:
+Arguments in addition to `--data-dir` include:
 
-- `directional=1` to force direction similar to game progression (default=1)
-- `print_npc=1` to print npc map connections (default=1)
-- `print_dead=1` to print/draw unreachable map nodes (default=0)
-- `graphviz_prefix` to specify a Graphviz prefix file (default=prefix.dot)
-- `graphviz_suffix` to specify a Graphviz suffix file (default=suffix.dot)
+- `--directional` - Force direction similar to game progression (Default = True)
+- `--print_npc` - Print NPC map connections (Default = True)
+- `--print_dead` - Print/draw unreachable map nodes (Default = False)
+- `--graphviz_prefix` - Specify a Graphviz prefix file (Default = prefix.dot)
+- `--graphviz_suffix` - Specify a Graphviz suffix file (Default = suffix.dot)
 
 Also, you can replace "png" with "svg" or many other image formats;
 see `dot` (graphviz) for documentation on that.
