@@ -36,12 +36,6 @@ In this case, use:
 ./generate_graph.sh /path/to/mod/maps
 ```
 
-## Example
-
-[empyrean_campaign_default](./example/empyrean_campaign_default.png)
-
-[empyrean_campaign_hyperspace](./example/empyrean_campaign_hyperspace.png)
-
 
 ## Prequisities
 
